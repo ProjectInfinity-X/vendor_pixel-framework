@@ -202,6 +202,12 @@ public class BcSmartspaceView extends FrameLayout implements BcSmartspaceDataPlu
     }
 
     public void onSmartspaceTargetsUpdated(List<? extends Parcelable> list) {
+        if (mClockStyleEnabled) {
+            if (this.mPageIndicator != null) {
+                this.mPageIndicator.setNumPages(0);
+            }
+            return;
+        }
         int i;
         BaseTemplateCard baseTemplateCard;
         BcSmartspaceCard bcSmartspaceCard;
