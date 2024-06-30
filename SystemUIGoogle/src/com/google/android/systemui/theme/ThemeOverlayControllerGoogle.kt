@@ -55,7 +55,6 @@ class ThemeOverlayControllerGoogle @Inject constructor(
     @Background bgExecutor: Executor,
     themeOverlayApplier: ThemeOverlayApplier,
     secureSettings: SecureSettings,
-    systemSettings: SystemSettings,
     wallpaperManager: WallpaperManager,
     userManager: UserManager,
     deviceProvisionedController: DeviceProvisionedController,
@@ -69,6 +68,7 @@ class ThemeOverlayControllerGoogle @Inject constructor(
     uiModeManager: UiModeManager,
     activityManager: ActivityManager,
     configurationController: ConfigurationController,
+    systemSettings: SystemSettings,
     tunerService: TunerService,
     @param:Main private val mainResources: Resources,
     private val systemPropertiesHelper: SystemPropertiesHelper
@@ -80,7 +80,6 @@ class ThemeOverlayControllerGoogle @Inject constructor(
     bgExecutor,
     themeOverlayApplier,
     secureSettings,
-    systemSettings,
     wallpaperManager,
     userManager,
     deviceProvisionedController,
@@ -92,8 +91,9 @@ class ThemeOverlayControllerGoogle @Inject constructor(
     javaAdapter,
     keyguardTransitionInteractor,
     uiModeManager,
-    configurationController,
     activityManager,
+    configurationController,
+    systemSettings,
     tunerService
 ) {
     init {
