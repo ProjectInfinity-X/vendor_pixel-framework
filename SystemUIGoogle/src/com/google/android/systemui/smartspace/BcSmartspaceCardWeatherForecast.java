@@ -5,8 +5,6 @@ import android.app.smartspace.SmartspaceTarget;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.os.UserHandle;
-import android.provider.Settings;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -81,12 +79,6 @@ public class BcSmartspaceCardWeatherForecast extends BcSmartspaceCardSecondary {
 
     @Override // com.google.android.systemui.smartspace.BcSmartspaceCardSecondary
     public final boolean setSmartspaceActions(SmartspaceTarget smartspaceTarget, BcSmartspaceDataPlugin.SmartspaceEventNotifier smartspaceEventNotifier, BcSmartspaceCardLoggingInfo bcSmartspaceCardLoggingInfo) {
-        boolean isWeatherEnabled = Settings.Secure.getIntForUser(getContext().getContentResolver(),
-                    Settings.Secure.LOCKSCREEN_SMARTSPACE_ENABLED,
-                    1, UserHandle.USER_CURRENT) != 0;
-        if (!isWeatherEnabled) {
-            return false;
-        }
         Bundle extras;
         SmartspaceAction baseAction = smartspaceTarget.getBaseAction();
         if (baseAction == null) {

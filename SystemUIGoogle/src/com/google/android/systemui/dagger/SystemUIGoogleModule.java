@@ -48,7 +48,7 @@ import com.android.systemui.doze.DozeHost;
 import com.android.systemui.dump.DumpManager;
 import com.android.systemui.keyguard.ui.view.layout.blueprints.KeyguardBlueprintModule;
 import com.android.systemui.keyguard.ui.view.layout.sections.KeyguardSectionsModule;
-import com.android.systemui.lineage.LineageModule;
+import com.android.systemui.infinity.InfinityModule;
 import com.android.systemui.media.dagger.MediaModule;
 import com.android.systemui.media.muteawait.MediaMuteAwaitConnectionCli;
 import com.android.systemui.media.nearby.NearbyMediaDevicesManager;
@@ -191,7 +191,7 @@ import dagger.Lazy;
         AssistModule.class,
         ColumbusModule.class,
         SystemUIGooglePolicyModule.class,
-        LineageModule.class
+        InfinityModule.class
 })
 
 public abstract class SystemUIGoogleModule {

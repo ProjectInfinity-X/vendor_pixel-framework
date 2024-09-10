@@ -16,62 +16,65 @@
 
 package com.google.android.systemui.assist;
 
-import static org.lineageos.internal.util.DeviceKeysConstants.*;
-
-import android.content.ContentResolver;
+import android.app.ActivityManager;
 import android.content.Context;
+import android.os.RemoteException;
+import android.os.ServiceManager;
+import android.provider.Settings;
+import android.util.Log;
 
+import com.android.internal.widget.ILockSettings;
 import com.android.systemui.dagger.SysUISingleton;
+import com.android.systemui.util.Assert;
 
 import javax.inject.Inject;
 
-import lineageos.providers.LineageSettings;
-
 @SysUISingleton
 public class OpaEnabledSettings {
-
     private final Context mContext;
-    private final ContentResolver mContentResolver;
-
-    private Action mHomeLongPressAction;
+    private final ILockSettings mLockSettings = ILockSettings.Stub.asInterface(ServiceManager.getService("lock_settings"));
 
     @Inject
     public OpaEnabledSettings(Context context) {
         mContext = context;
-        mContentResolver = context.getContentResolver();
-
-        mHomeLongPressAction = Action.fromIntSafe(mContext.getResources().getInteger(
-                org.lineageos.platform.internal.R.integer.config_longPressOnHomeBehavior));
-        if (mHomeLongPressAction.ordinal() > Action.SLEEP.ordinal()) {
-            mHomeLongPressAction = Action.NOTHING;
-        }
-        mHomeLongPressAction = Action.fromSettings(mContentResolver,
-                LineageSettings.System.KEY_HOME_LONG_PRESS_ACTION,
-                mHomeLongPressAction);
     }
 
     public boolean isOpaEligible() {
-        return true;
+        Assert.isNotMainThread();
+        return Settings.Secure.getIntForUser(mContext.getContentResolver(), "systemui.google.opa_enabled", 0, ActivityManager.getCurrentUser()) != 0;
     }
 
     public void setOpaEligible(boolean z) {
+        Assert.isNotMainThread();
+        Settings.Secure.putIntForUser(mContext.getContentResolver(), "systemui.google.opa_enabled", z ? 1 : 0, ActivityManager.getCurrentUser());
     }
 
     public boolean isOpaEnabled() {
-        return true;
+        Assert.isNotMainThread();
+        try {
+            return mLockSettings.getBoolean("systemui.google.opa_user_enabled", false, ActivityManager.getCurrentUser());
+        } catch (RemoteException e) {
+            Log.e("OpaEnabledSettings", "isOpaEnabled RemoteException", e);
+            return false;
+        }
     }
 
     public void setOpaEnabled(boolean z) {
+        Assert.isNotMainThread();
+        try {
+            mLockSettings.setBoolean("systemui.google.opa_user_enabled", z, ActivityManager.getCurrentUser());
+        } catch (RemoteException e) {
+            Log.e("OpaEnabledSettings", "RemoteException on OPA_USER_ENABLED", e);
+        }
     }
 
     public boolean isAgsaAssistant() {
+        Assert.isNotMainThread();
         return OpaUtils.isAGSACurrentAssistant(mContext);
     }
 
     public boolean isLongPressHomeEnabled() {
-        mHomeLongPressAction = Action.fromSettings(mContentResolver,
-                LineageSettings.System.KEY_HOME_LONG_PRESS_ACTION,
-                mHomeLongPressAction);
-        return mHomeLongPressAction == Action.SEARCH;
+        Assert.isNotMainThread();
+        return Settings.Secure.getInt(mContext.getContentResolver(), "assist_long_press_home_enabled", mContext.getResources().getBoolean(com.android.internal.R.bool.config_assistLongPressHomeEnabledDefault) ? 1 : 0) != 0;
     }
 }

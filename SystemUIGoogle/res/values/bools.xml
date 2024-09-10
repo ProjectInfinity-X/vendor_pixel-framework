@@ -10,5 +10,5 @@
     <bool name="config_tablet">false</bool>
     <bool name="config_touch_context_enabled">false</bool>
     <bool name="config_wlc_support_enabled">false</bool>
-    <bool name="flag_smartspace">true</bool>
+    <bool name="flag_smartspace">false</bool>
 </resources>
