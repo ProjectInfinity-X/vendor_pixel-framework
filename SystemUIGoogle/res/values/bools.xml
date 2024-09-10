@@ -11,5 +11,5 @@
     <bool name="config_enable_elmyra_service">false</bool>
     <bool name="config_touch_context_enabled">false</bool>
     <bool name="config_wlc_support_enabled">false</bool>
-    <bool name="flag_smartspace">true</bool>
+    <bool name="flag_smartspace">false</bool>
 </resources>
