@@ -39,7 +39,7 @@ import com.android.systemui.plugins.statusbar.StatusBarStateController;
 import com.android.systemui.statusbar.CrossFadeHelper;
 import com.android.systemui.statusbar.policy.ConfigurationController;
 import com.android.systemui.statusbar.policy.KeyguardStateController;
-import com.android.wm.shell.animation.PhysicsAnimator;
+import com.android.wm.shell.shared.animation.PhysicsAnimator;
 
 import java.util.concurrent.TimeUnit;
 

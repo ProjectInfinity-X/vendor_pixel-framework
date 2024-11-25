@@ -16,7 +16,9 @@
     <permission android:name="com.google.android.columbus.permission.CONFIGURE_COLUMBUS_GESTURE" android:protectionLevel="preinstalled|signature"/>
     <uses-permission android:name="com.google.android.columbus.permission.CONFIGURE_COLUMBUS_GESTURE"/>
     <uses-permission android:name="com.google.restricted_assist_gesture.permission.RESTRICTED_ASSIST_GESTURE_PROVIDER"/>
-    <permission android:name="com.google.android.ambientindication.permission.AMBIENT_INDICATION" android:protectionLevel="privileged|signature"/>
+    <permission android:name="com.google.android.ambientindication.permission.AMBIENT_INDICATION"
+    android:protectionLevel="privileged|signature"
+    tools:replace="android:protectionLevel"/>
     <uses-permission android:name="com.google.android.apps.nexuslauncher.permission.QSB"/>
     <permission android:name="com.google.android.systemui.permission.WIRELESS_CHARGER_STATUS" android:protectionLevel="privileged|signature"/>
     <protected-broadcast android:name="com.google.android.apps.dreamliner.SETTINGS"/>

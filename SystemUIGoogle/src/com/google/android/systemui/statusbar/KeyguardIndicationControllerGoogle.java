@@ -46,6 +46,9 @@ import com.android.systemui.broadcast.BroadcastDispatcher;
 import com.android.systemui.dagger.SysUISingleton;
 import com.android.systemui.dagger.qualifiers.Background;
 import com.android.systemui.dagger.qualifiers.Main;
+import com.android.systemui.deviceentry.domain.interactor.BiometricMessageInteractor;
+import com.android.systemui.deviceentry.domain.interactor.DeviceEntryFaceAuthInteractor;
+import com.android.systemui.deviceentry.domain.interactor.DeviceEntryFingerprintAuthInteractor;
 import com.android.systemui.dock.DockManager;
 import com.android.systemui.flags.FeatureFlags;
 import com.android.systemui.keyguard.KeyguardIndication;
@@ -137,12 +140,16 @@ public class KeyguardIndicationControllerGoogle extends KeyguardIndicationContro
             BouncerMessageInteractor bouncerMessageInteractor,
             FeatureFlags featureFlags,
             IndicationHelper indicationHelper,
-            KeyguardInteractor keyguardInteractor) {
+            KeyguardInteractor keyguardInteractor,
+            BiometricMessageInteractor biometricMessageInteractor,
+            DeviceEntryFingerprintAuthInteractor deviceEntryFingerprintAuthInteractor,
+            DeviceEntryFaceAuthInteractor deviceEntryFaceAuthInteractor) {
         super(context, mainLooper, wakeLockBuilder, keyguardStateController, statusBarStateController, keyguardUpdateMonitor,
             dockManager, broadcastDispatcher, devicePolicyManager, iBatteryStats, userManager, executor, bgExecutor,
             falsingManager, authController, lockPatternUtils, screenLifecycle, keyguardBypassController,
             accessibilityManager, faceHelpMessageDeferral, keyguardLogger, alternateBouncerInteractor, alarmManager, userTracker, bouncerMessageInteractor,
-            featureFlags, indicationHelper, keyguardInteractor);
+            featureFlags, indicationHelper, keyguardInteractor, biometricMessageInteractor,
+            deviceEntryFingerprintAuthInteractor, deviceEntryFaceAuthInteractor);
         mBroadcastReceiver = new BroadcastReceiver() {
             @Override
             public final void onReceive(Context context, Intent intent) {

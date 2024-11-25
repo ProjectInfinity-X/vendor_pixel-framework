@@ -30,6 +30,7 @@ import android.view.View;
 import android.widget.Switch;
 import androidx.lifecycle.Lifecycle;
 import com.android.internal.logging.MetricsLogger;
+import com.android.systemui.animation.Expandable;
 import com.android.systemui.dagger.qualifiers.Background;
 import com.android.systemui.dagger.qualifiers.Main;
 import com.android.systemui.Prefs;
@@ -42,7 +43,9 @@ import com.android.systemui.plugins.ActivityStarter;
 import com.android.systemui.plugins.FalsingManager;
 import com.android.systemui.plugins.qs.QSTile;
 import com.android.systemui.plugins.statusbar.StatusBarStateController;
+import com.android.systemui.qs.tileimpl.QSTileImpl;
 import com.android.systemui.statusbar.policy.BatteryController;
+import com.android.systemui.statusbar.policy.BatteryControllerImpl;
 
 import javax.inject.Inject;
 
@@ -138,11 +141,11 @@ public class ReverseChargingTile extends QSTileImpl<QSTile.BooleanState> impleme
     }
 
     @Override
-    protected void handleClick(View view) {
+    protected void handleClick(Expandable expandable) {
         if (getState().state != 0) {
             mReverse = !mReverse;
             if (DEBUG) {
-                Log.d("ReverseChargingTile", "handleClick(): rtx=" + (mReverse ? 1 : 0) + ",this=" + this);
+                Log.d("ReverseChargingTile", "handleClick(): rtx=" + (mReverse ? 1 : 0) + ", this=" + this);
             }
             mBatteryController.setReverseState(mReverse);
             showBottomSheetIfNecessary();
@@ -205,11 +208,11 @@ public class ReverseChargingTile extends QSTileImpl<QSTile.BooleanState> impleme
     }
 
     @Override
-    public void onReverseChanged(boolean z, int i, String str) {
+    public void onReverseChanged(boolean isReverse, int level, String name) {
         if (DEBUG) {
-            Log.d("ReverseChargingTile", "onReverseChanged(): rtx=" + (z ? 1 : 0) + ",level=" + i + ",name=" + str + ",this=" + this);
+            Log.d("ReverseChargingTile", "onReverseChanged(): rtx=" + (isReverse ? 1 : 0) + ", level=" + level + ", name=" + name);
         }
-        mReverse = z;
+        mReverse = isReverse;
         refreshState(null);
     }
 

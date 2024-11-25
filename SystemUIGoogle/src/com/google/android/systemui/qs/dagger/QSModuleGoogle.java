@@ -28,11 +28,13 @@ import com.android.systemui.media.dagger.MediaModule;
 import com.android.systemui.qs.AutoAddTracker;
 import com.android.systemui.qs.QSHost;
 import com.android.systemui.qs.ReduceBrightColorsController;
+import com.android.systemui.qs.ReduceBrightColorsControllerImpl;
 import com.android.systemui.qs.dagger.QSFlagsModule;
 import com.android.systemui.qs.dagger.QSFragmentComponent;
 import com.android.systemui.qs.dagger.QSHostModule;
-import com.android.systemui.qs.pipeline.dagger.QSPipelineModule;
 import com.android.systemui.qs.external.QSExternalModule;
+import com.android.systemui.qs.panels.dagger.PanelsModule;
+import com.android.systemui.qs.pipeline.dagger.QSPipelineModule;
 import com.android.systemui.statusbar.phone.AutoTileManager;
 import com.android.systemui.statusbar.phone.ManagedProfileController;
 import com.android.systemui.statusbar.policy.BatteryController;
@@ -67,6 +69,7 @@ import dagger.multibindings.Multibinds;
 @Module(subcomponents = {QSFragmentComponent.class, QSSceneComponent.class},
         includes = {
                 MediaModule.class,
+                PanelsModule.class,
                 QSExternalModule.class,
                 QSFlagsModule.class,
                 QSHostModule.class,
@@ -123,4 +126,11 @@ public interface QSModuleGoogle {
     
     @Binds
     QSSceneAdapter bindsQsSceneInteractor(QSSceneAdapterImpl impl);
+
+    /**
+     * Dims the screen
+     */
+    @Binds
+    ReduceBrightColorsController bindReduceBrightColorsController(
+            ReduceBrightColorsControllerImpl impl);
 }
