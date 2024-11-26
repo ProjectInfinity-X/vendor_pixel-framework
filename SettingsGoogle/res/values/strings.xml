@@ -1,5 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
+    <!-- Settings intelligence package name -->
+    <string name="config_settingsintelligence_package_name" translatable="false">
+        com.android.settings.intelligence
+    </string>
     <string name="aware_category_display" />
     <string name="aware_category_gesture" />
     <string name="aware_display_settings_title">Idle lock screen</string>
@@ -476,6 +480,7 @@ Flip your phone over to try."</string>
     <string name="reverse_charging_unplug_usb_cable_message">Unavailable because USB-C device plugged in</string>
     <string name="reverse_charging_warning_summary">Unavailable because battery is under %1$s</string>
     <string name="reverse_charging_warning_title">Battery Share is unavailable because battery is under %1$s</string>
+    <string name="reverse_charging_detail_unsupported_charger_message">Battery Share is unavailable during charging</string>
     <string name="rtt_settings_always_visible">Always visible</string>
     <string name="rtt_settings_no_visible">Not visible</string>
     <string name="rtt_settings_title">Real-time text (RTT)</string>
