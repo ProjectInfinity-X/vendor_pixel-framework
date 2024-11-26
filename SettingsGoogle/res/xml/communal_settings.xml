@@ -12,6 +12,17 @@
             android:order="0"
             android:title="@string/screensaver_settings_title"
             settings:controller="com.android.settings.display.ScreenSaverPreferenceController" />
+        <com.android.settingslib.RestrictedSwitchPreference
+            android:title="@string/enable_glanceable_hub_toggle"
+            android:key="enable_glanceable_hub_toggle"
+            android:summary="@string/enable_glanceable_hub_toggle_summary"
+            android:order="5"
+            settings:controller="com.google.android.settings.communal.GlanceableHubTogglePreferenceController"/>
+        <SwitchPreferenceCompat
+            android:title="@string/hub_mode_content_setting"
+            android:key="hub_mode_content_setting"
+            android:order="6"
+            settings:controller="com.google.android.settings.communal.HubModeContentPreferenceController"/>
         <Preference
             android:key="smartspace_from_communal_settings"
             android:order="10"
