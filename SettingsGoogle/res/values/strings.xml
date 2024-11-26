@@ -216,6 +216,8 @@ Clear Calling works on Wi‑Fi calling and most networks, not available for 3G n
     <string name="connectivity_helper_call_quality_category">Call quality</string>
     <string name="connectivity_helper_call_quality_summary">Get notified about causes of connection issues during calls</string>
     <string name="connectivity_helper_call_quality_title">Get notifications</string>
+    <string name="enable_glanceable_hub_toggle">Show widgets on lock screen</string>
+    <string name="enable_glanceable_hub_toggle_summary">Without unlocking your tablet</string>
     <string name="extreme_battery_saver_summary">Includes all changes listed above. Also pauses non-essential apps and their notifications.</string>
     <string name="extreme_battery_saver_title">Extreme Battery Saver</string>
     <string name="face_confirmation_hide_illustration_description">Now when you pick up your phone or tap the screen, you can use your face to unlock.</string>
@@ -420,6 +422,7 @@ Backup data will not count towards your Drive storage quota. Large files, or fil
     <string name="help_url_vpn" formatted="false">intent:#Intent;action=com.google.android.gms.googlehelp.LAUNCH;S.EXTRA_CONTEXT=android_vpn;S.EXTRA_BACKUP_URI=https%3A%2F%2Fsupport.google.com%2Fmobile%2F%3Fp%3Dsettings_vpn;end</string>
     <string name="help_url_wifi" formatted="false">intent:#Intent;action=com.google.android.gms.googlehelp.LAUNCH;S.EXTRA_CONTEXT=android_wi_fi;S.EXTRA_BACKUP_URI=https%3A%2F%2Fsupport.google.com%2Fmobile%2F%3Fp%3Dsettings_wifi;end</string>
     <string name="help_url_wifi_p2p" formatted="false">intent:#Intent;action=com.google.android.gms.googlehelp.LAUNCH;S.EXTRA_CONTEXT=android_wi_fi_p2p;S.EXTRA_BACKUP_URI=https%3A%2F%2Fsupport.google.com%2Fmobile%2F%3Fp%3Dsettings_wifi_p2p;end</string>
+    <string name="hub_mode_content_setting">Allow any widget on lock screen</string>
     <string name="install_unknown_applications">Allow installation of apps from sources other than the Play Store</string>
     <string name="keywords_accessibility_menu">motor, quick menu, assistive menu, touch, dexterity</string>
     <string name="keywords_adaptive_alert_vibration">haptics, vibrate, phone, call, ring, alert, notifications, loud, quiet, noise, case, adaptive</string>
@@ -547,6 +550,8 @@ To improve performance, you can set up Face Unlock again in Settings."</string>
     <string name="settingslib_config_headlineFontFamily">google-sans</string>
     <string name="setup_suggestion_summary">Just a few more steps</string>
     <string name="setup_suggestion_title">Finish setting up</string>
+    <string name="smart_battery_a11y_collapse_label">Collapse, Adaptive Battery</string>
+    <string name="smart_battery_a11y_expand_label">Expand, Adaptive Battery</string>
     <string name="smart_battery_footer">To extend battery life, Adaptive Battery may reduce performance and background activity. Some notifications may be delayed.</string>
     <string name="smart_battery_manager_title">Adaptive preferences</string>
     <string name="smart_battery_title">Adaptive Battery</string>
