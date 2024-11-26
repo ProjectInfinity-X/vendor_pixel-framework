@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?><manifest 
 xmlns:tools="http://schemas.android.com/tools"
-xmlns:android="http://schemas.android.com/apk/res/android" android:compileSdkVersion="34" android:compileSdkVersionCodename="14" android:sharedUserId="android.uid.system" coreApp="true" package="com.android.settings" platformBuildVersionCode="34" platformBuildVersionName="14">
+xmlns:android="http://schemas.android.com/apk/res/android" android:compileSdkVersion="35" android:compileSdkVersionCodename="15" android:sharedUserId="android.uid.system" coreApp="true" package="com.android.settings" platformBuildVersionCode="35" platformBuildVersionName="15">
     <permission android:name="com.google.android.settings.routines.ROUTINES_ACTIONS"
         android:protectionLevel="privileged|signature"
         tools:replace="android:protectionLevel"/>
@@ -19,9 +19,11 @@ xmlns:android="http://schemas.android.com/apk/res/android" android:compileSdkVer
     <permission android:name="com.google.android.settings.biometrics.face.POSTURE_GUIDANCE"
         android:protectionLevel="privileged|signature"
         tools:replace="android:protectionLevel"/>
+    <permission android:name="com.google.android.settings.accessibility.ADAPTIVE_VIBRATION"
+        android:protectionLevel="privileged|signature"
+        tools:replace="android:protectionLevel"/>
     <uses-permission android:name="android.permission.MANAGE_GAME_MODE"/>
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <uses-permission android:name="com.google.android.settings.routines.ROUTINES_ACTIONS"/>
     <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS"/>
     <uses-permission android:name="com.google.android.settings.intelligence.BATTERY_DATA"/>
@@ -32,6 +34,7 @@ xmlns:android="http://schemas.android.com/apk/res/android" android:compileSdkVer
     <uses-permission android:name="com.google.android.wildlife.permission.ADVANCED_VPN_CONFIG"/>
     <uses-permission android:name="com.google.android.apps.scone.speedboost.settings.READ_PREFERENCES"/>
     <uses-permission android:name="android.permission.MANAGE_SAFETY_CENTER"/>
+    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES"/>
     <protected-broadcast android:name="com.google.android.settings.PRE_INDEX_SEARCH"/>
     <original-package android:name="com.android.settings"/>
     <uses-permission android:name="android.permission.REQUEST_NETWORK_SCORES"/>
@@ -109,6 +112,7 @@ xmlns:android="http://schemas.android.com/apk/res/android" android:compileSdkVer
     <uses-permission android:name="android.permission.SUGGEST_MANUAL_TIME_AND_ZONE"/>
     <uses-permission android:name="android.permission.ACCESS_NOTIFICATIONS"/>
     <uses-permission android:name="android.permission.REBOOT"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <uses-permission android:name="android.permission.MANAGE_DEVICE_ADMINS"/>
     <uses-permission android:name="android.permission.READ_SEARCH_INDEXABLES"/>
     <uses-permission android:name="android.permission.BIND_SETTINGS_SUGGESTIONS_SERVICE"/>
