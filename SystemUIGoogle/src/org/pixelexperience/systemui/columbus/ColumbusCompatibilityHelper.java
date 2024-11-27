@@ -24,7 +24,7 @@ public class ColumbusCompatibilityHelper {
     }
 
     public static String getModelFileName() {
-        return SystemProperties.get("persist.columbus.model", "tap7cls_crosshatch.tflite");
+        return SystemProperties.get("persist.columbus.model", "quickTapBaseModel.tflite");
     }
 
     public static Long apSensorThrottleMs() {
