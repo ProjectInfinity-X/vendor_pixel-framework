@@ -60,7 +60,6 @@ import com.android.systemui.keyguard.KeyguardViewMediator;
 import com.android.systemui.keyguard.ScreenLifecycle;
 import com.android.systemui.keyguard.ui.viewmodel.LightRevealScrimViewModel;
 import com.android.systemui.keyguard.WakefulnessLifecycle;
-import com.android.systemui.model.SysUiState;
 import com.android.systemui.navigationbar.NavigationBarController;
 import com.android.systemui.notetask.NoteTaskController;
 import com.android.systemui.plugins.ActivityStarter;
@@ -283,7 +282,6 @@ public class CentralSurfacesGoogle extends CentralSurfacesImpl {
             BrightnessMirrorShowingInteractor brightnessMirrorShowingInteractor,
             GlanceableHubContainerController glanceableHubContainerController,
             EmergencyGestureIntentFactory emergencyGestureIntentFactory,
-            SysUiState sysUiState,
             BurnInProtectionController burnInProtectionController,
             Optional<ReverseChargingViewController> reverseChargingViewControllerOptional,
             WallpaperNotifier wallpaperNotifier,
@@ -308,7 +306,7 @@ public class CentralSurfacesGoogle extends CentralSurfacesImpl {
                 keyguardUnlockAnimationController, delayableExecutor, messageRouter, wallpaperManager, startingSurfaceOptional, activityTransitionAnimator,
                 deviceStateManager, wiredChargingRippleController, dreamManager, cameraLauncherLazy, lightRevealScrimViewModelLazy, lightRevealScrim,
                 alternateBouncerInteractor, userTracker, fingerprintManager, tunerService, activityStarter, brightnessMirrorShowingInteractor,
-                glanceableHubContainerController, emergencyGestureIntentFactory, sysUiState, burnInProtectionController);
+                glanceableHubContainerController, emergencyGestureIntentFactory, burnInProtectionController);
         mContext = context;
         mBatteryStateChangeCallback = new BatteryController.BatteryStateChangeCallback() {
             @Override
