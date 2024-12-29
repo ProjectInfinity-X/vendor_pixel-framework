@@ -23,9 +23,6 @@ import com.android.systemui.back.domain.interactor.BackActionInteractor
 import com.android.systemui.biometrics.AuthController
 import com.android.systemui.biometrics.BiometricNotificationService
 import com.android.systemui.clipboardoverlay.ClipboardListener
-import com.android.systemui.communal.CommunalSceneStartable
-import com.android.systemui.communal.log.CommunalLoggerStartable
-import com.android.systemui.communal.widgets.CommunalAppWidgetHostStartable
 import com.android.systemui.controls.dagger.StartControlsStartableModule
 import com.android.systemui.CoreStartable
 import com.android.systemui.dagger.qualifiers.PerUser
@@ -330,23 +327,6 @@ abstract class SystemUIGoogleCoreStartableModule {
     @IntoMap
     @ClassKey(KeyguardDismissBinder::class)
     abstract fun bindKeyguardDismissBinder(impl: KeyguardDismissBinder): CoreStartable
-
-    @Binds
-    @IntoMap
-    @ClassKey(CommunalLoggerStartable::class)
-    abstract fun bindCommunalLoggerStartable(impl: CommunalLoggerStartable): CoreStartable
-
-    @Binds
-    @IntoMap
-    @ClassKey(CommunalSceneStartable::class)
-    abstract fun bindCommunalSceneStartable(impl: CommunalSceneStartable): CoreStartable
-
-    @Binds
-    @IntoMap
-    @ClassKey(CommunalAppWidgetHostStartable::class)
-    abstract fun bindCommunalAppWidgetHostStartable(
-        impl: CommunalAppWidgetHostStartable
-    ): CoreStartable
 
     @Binds
     @IntoMap

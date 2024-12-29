@@ -27,6 +27,7 @@ import android.provider.Settings;
 import android.util.Log;
 import android.view.IWindowManager;
 
+import com.android.app.viewcapture.ViewCaptureAwareWindowManager;
 import com.android.internal.app.AssistUtils;
 import com.android.internal.app.IVoiceInteractionSessionListener;
 import com.android.keyguard.KeyguardUpdateMonitor;
@@ -94,6 +95,7 @@ public class AssistManagerGoogle extends AssistManager {
             SelectedUserInteractor selectedUserInteractor,
             ActivityManager activityManager,
             AssistInteractor interactor,
+            ViewCaptureAwareWindowManager viewCaptureAwareWindowManager,
             GoogleDefaultUiController googleDefaultUiController,
             BroadcastDispatcher broadcastDispatcher,
             OpaEnabledDispatcher opaEnabledDispatcher,
@@ -109,7 +111,7 @@ public class AssistManagerGoogle extends AssistManager {
                 sysUiState, defaultUiController,
                 assistLogger, uiHandler, userTracker,
                 displayTracker, secureSettings,
-                selectedUserInteractor, activityManager, interactor);
+                selectedUserInteractor, activityManager, interactor, viewCaptureAwareWindowManager);
         mUiHandler = uiHandler;
         mDefaultUiController = googleDefaultUiController;
         mUiController = googleDefaultUiController;

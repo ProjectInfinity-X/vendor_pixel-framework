@@ -23,7 +23,6 @@ public class HubModeContentPreferenceController extends TogglePreferenceControll
     }
 
     int getDefaultWidgetCategories() {
-        com.android.settingslib.flags.Flags.allowAllWidgetsOnLockscreenByDefault();
         return 2;
     }
 

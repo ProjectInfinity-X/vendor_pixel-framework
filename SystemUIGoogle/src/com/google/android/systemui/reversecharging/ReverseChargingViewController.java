@@ -36,7 +36,6 @@ import com.android.systemui.dagger.SysUISingleton;
 import com.android.systemui.statusbar.phone.CentralSurfaces;
 import com.android.systemui.statusbar.phone.ui.StatusBarIconController;
 import com.android.systemui.statusbar.policy.BatteryController;
-import com.google.android.systemui.ambientmusic.AmbientIndicationContainer;
 import com.google.android.systemui.statusbar.KeyguardIndicationControllerGoogle;
 
 import java.util.concurrent.Executor;
@@ -56,7 +55,6 @@ public class ReverseChargingViewController extends BroadcastReceiver implements 
     private final @Main Executor mMainExecutor;
     private final StatusBarIconController mStatusBarIconController;
     private final Lazy<CentralSurfaces> mCentralSurfacesLazy;
-    private AmbientIndicationContainer mAmbientIndicationContainer;
     private String mContentDescription;
     private int mLevel;
     private String mName;
@@ -125,7 +123,6 @@ public class ReverseChargingViewController extends BroadcastReceiver implements 
     public void initialize() {
         mBatteryController.observe(mLifecycle, this);
         mLifecycle.markState(Lifecycle.State.RESUMED);
-        mAmbientIndicationContainer = (AmbientIndicationContainer) mCentralSurfacesLazy.get().getNotificationShadeWindowView().findViewById(R.id.ambient_indication_container);
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("android.intent.action.LOCALE_CHANGED");
         mBroadcastDispatcher.registerReceiver(this, intentFilter);
@@ -133,42 +130,8 @@ public class ReverseChargingViewController extends BroadcastReceiver implements 
 
     private void postOnMainThreadToUpdate() {
         mMainExecutor.execute(() -> {
-            updateMessage();
             updateReverseChargingIcon();
         });
-    }
-
-    private void updateMessage() {
-        Log.d("ReverseChargingViewController=", (mAmbientIndicationContainer == null ? "null" : "not null"));
-        if (mAmbientIndicationContainer != null) {
-           Log.d("ReverseChargingViewController=", (mReverse ? "true" : "false"));
-           Log.d("ReverseChargingViewController,mName=", (TextUtils.isEmpty(mName) ? "" : "mName"));
-           Log.d("ReverseChargingViewController,mBatteryController.isWirelessCharging()=", (mBatteryController.isWirelessCharging() ? "true" : "false"));
-            if (!mReverse && mBatteryController.isWirelessCharging() && !TextUtils.isEmpty(mName)) {
-                String string = mContext.getResources().getString(R.string.reverse_charging_device_providing_charge_text, mName, Utils.formatPercentage(mLevel));
-                if (DEBUG) {
-                    Log.d("ReverseChargingViewCtrl", "updateMessage(): rtx=" + (mReverse ? 1 : 0) + " wlcString=" + string);
-                }
-                mKeyguardIndicationController.setReverseChargingMessage(string);
-                mAmbientIndicationContainer.setWirelessChargingMessage(string);
-                return;
-            }
-            String str = "";
-            mKeyguardIndicationController.setReverseChargingMessage(mProvidingBattery ? mReverseCharging : str);
-            mAmbientIndicationContainer.setReverseChargingMessage(mProvidingBattery ? mReverseCharging : str);
-            if (!DEBUG) {
-                return;
-            }
-            StringBuilder sb = new StringBuilder();
-            sb.append("updateMessage(): rtx=");
-            sb.append(mReverse ? 1 : 0);
-            sb.append(" rtxString=");
-            if (mProvidingBattery) {
-                str = mReverseCharging;
-            }
-            sb.append(str);
-            Log.d("ReverseChargingViewCtrl", sb.toString());
-        }
     }
 
     private void updateReverseChargingIcon() {
