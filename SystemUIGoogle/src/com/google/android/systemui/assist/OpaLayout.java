@@ -47,9 +47,9 @@ import com.android.systemui.Dependency;
 import com.android.systemui.res.R;
 import com.android.app.animation.Interpolators;
 import com.android.systemui.assist.AssistManager;
-import com.android.systemui.navigationbar.buttons.ButtonInterface;
-import com.android.systemui.navigationbar.buttons.KeyButtonDrawable;
-import com.android.systemui.navigationbar.buttons.KeyButtonView;
+import com.android.systemui.navigationbar.views.buttons.ButtonInterface;
+import com.android.systemui.navigationbar.views.buttons.KeyButtonDrawable;
+import com.android.systemui.navigationbar.views.buttons.KeyButtonView;
 import com.android.systemui.recents.OverviewProxyService;
 import com.android.systemui.shared.system.QuickStepContract;
 
