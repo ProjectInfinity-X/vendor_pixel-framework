@@ -8,5 +8,5 @@
     android:layout="@layout/ambient_indication_inner"
     android:layout_gravity="bottom"
     android:layout_marginBottom="@dimen/ambient_indication_margin_bottom"
-    android:layout_marginStart="41dp"
+    android:layout_marginStart="100dp"
     android:layout_marginEnd="41dp" />
