@@ -65,7 +65,7 @@
         android:layout_gravity="center"
         android:scaleType="center" />
 
-    <com.android.systemui.navigationbar.buttons.KeyButtonView
+    <com.android.systemui.navigationbar.views.buttons.KeyButtonView
         android:id="@id/home_button"
         android:layout_width="@dimen/navigation_key_width"
         android:layout_height="fill_parent"
