@@ -40,7 +40,6 @@ import java.util.concurrent.Executor;
 
 import javax.inject.Inject;
 
-
 @SysUISingleton
 public class OpaEnabledReceiver {
     private final @Background Executor mBgExecutor;
@@ -51,7 +50,7 @@ public class OpaEnabledReceiver {
     private final @Main Executor mFgExecutor;
     private final OpaEnabledSettings mOpaEnabledSettings;
     private final BroadcastReceiver mBroadcastReceiver = new OpaEnabledBroadcastReceiver();
-    private final List<OpaEnabledListener> mListeners = new ArrayList();
+    private final List<OpaEnabledListener> mListeners = new ArrayList<>();
     private boolean mIsAGSAAssistant;
     private boolean mIsLongPressHomeEnabled;
     private boolean mIsOpaEligible;
@@ -76,29 +75,35 @@ public class OpaEnabledReceiver {
         opaEnabledListener.onOpaEnabledReceived(mContext, mIsOpaEligible, mIsAGSAAssistant, mIsOpaEnabled, mIsLongPressHomeEnabled);
     }
 
-    public void onUserSwitching(int i) {
+    public void onUserSwitching(int userId) {
         updateOpaEnabledState(true);
         mContentResolver.unregisterContentObserver(mContentObserver);
         registerContentObserver();
         mBroadcastDispatcher.unregisterReceiver(mBroadcastReceiver);
-        registerEnabledReceiver(i);
+        registerEnabledReceiver(userId);
     }
 
-    private void updateOpaEnabledState(boolean z) {
-        updateOpaEnabledState(z, null);
+    private void updateOpaEnabledState(boolean notifyListeners) {
+        updateOpaEnabledState(notifyListeners, null);
     }
 
-    private void updateOpaEnabledState(final boolean z, final BroadcastReceiver.PendingResult pendingResult) {
+    private void updateOpaEnabledState(final boolean notifyListeners, final BroadcastReceiver.PendingResult pendingResult) {
         mBgExecutor.execute(() -> {
-            mIsOpaEligible = mOpaEnabledSettings.isOpaEligible();
-            mIsAGSAAssistant = mOpaEnabledSettings.isAgsaAssistant();
-            mIsOpaEnabled = mOpaEnabledSettings.isOpaEnabled();
-            mIsLongPressHomeEnabled = mOpaEnabledSettings.isLongPressHomeEnabled();
-            if (z) {
-                mFgExecutor.execute(() -> dispatchOpaEnabledState(mContext));
-            }
-            if (pendingResult != null) {
-                mFgExecutor.execute((Runnable) pendingResult::finish);
+            synchronized (this) {
+                try {
+                    mIsOpaEligible = mOpaEnabledSettings.isOpaEligible();
+                    mIsAGSAAssistant = mOpaEnabledSettings.isAgsaAssistant();
+                    mIsOpaEnabled = mOpaEnabledSettings.isOpaEnabled();
+                    mIsLongPressHomeEnabled = mOpaEnabledSettings.isLongPressHomeEnabled();
+
+                    if (notifyListeners) {
+                        mFgExecutor.execute(() -> dispatchOpaEnabledState(mContext));
+                    }
+                } finally {
+                    if (pendingResult != null) {
+                        pendingResult.finish();
+                    }
+                }
             }
         });
     }
@@ -108,9 +113,9 @@ public class OpaEnabledReceiver {
     }
 
     private void dispatchOpaEnabledState(Context context) {
-        Log.i("OpaEnabledReceiver", "Dispatching OPA eligble = " + mIsOpaEligible + "; AGSA = " + mIsAGSAAssistant + "; OPA enabled = " + mIsOpaEnabled);
-        for (int i = 0; i < mListeners.size(); i++) {
-            mListeners.get(i).onOpaEnabledReceived(context, mIsOpaEligible, mIsAGSAAssistant, mIsOpaEnabled, mIsLongPressHomeEnabled);
+        Log.i("OpaEnabledReceiver", "Dispatching OPA eligible = " + mIsOpaEligible + "; AGSA = " + mIsAGSAAssistant + "; OPA enabled = " + mIsOpaEnabled);
+        for (OpaEnabledListener listener : mListeners) {
+            listener.onOpaEnabledReceived(context, mIsOpaEligible, mIsAGSAAssistant, mIsOpaEnabled, mIsLongPressHomeEnabled);
         }
     }
 
@@ -119,9 +124,9 @@ public class OpaEnabledReceiver {
         mContentResolver.registerContentObserver(Settings.Secure.getUriFor("assist_long_press_home_enabled"), false, mContentObserver, -2);
     }
 
-    private void registerEnabledReceiver(int i) {
-        mBroadcastDispatcher.registerReceiver(mBroadcastReceiver, new IntentFilter("com.google.android.systemui.OPA_ENABLED"), mBgExecutor, new UserHandle(i));
-        mBroadcastDispatcher.registerReceiver(mBroadcastReceiver, new IntentFilter("com.google.android.systemui.OPA_USER_ENABLED"), mBgExecutor, new UserHandle(i));
+    private void registerEnabledReceiver(int userId) {
+        mBroadcastDispatcher.registerReceiver(mBroadcastReceiver, new IntentFilter("com.google.android.systemui.OPA_ENABLED"), mBgExecutor, new UserHandle(userId));
+        mBroadcastDispatcher.registerReceiver(mBroadcastReceiver, new IntentFilter("com.google.android.systemui.OPA_USER_ENABLED"), mBgExecutor, new UserHandle(userId));
     }
 
     @VisibleForTesting
@@ -135,7 +140,7 @@ public class OpaEnabledReceiver {
         }
 
         @Override
-        public void onChange(boolean z, Uri uri) {
+        public void onChange(boolean selfChange, Uri uri) {
             updateOpaEnabledState(true);
         }
     }
@@ -146,9 +151,9 @@ public class OpaEnabledReceiver {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (intent.getAction().equals("com.google.android.systemui.OPA_ENABLED")) {
+            if ("com.google.android.systemui.OPA_ENABLED".equals(intent.getAction())) {
                 mOpaEnabledSettings.setOpaEligible(intent.getBooleanExtra("OPA_ENABLED", false));
-            } else if (intent.getAction().equals("com.google.android.systemui.OPA_USER_ENABLED")) {
+            } else if ("com.google.android.systemui.OPA_USER_ENABLED".equals(intent.getAction())) {
                 mOpaEnabledSettings.setOpaEnabled(intent.getBooleanExtra("OPA_USER_ENABLED", false));
             }
             updateOpaEnabledState(true, goAsync());
